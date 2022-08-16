@@ -569,7 +569,7 @@ class Arbiter(object):
             self.log.debug("socket backlog: {0}".format(backlog),
                            extra={"metric": "gunicorn.backlog",
                                   "value": backlog,
-                                  "mtype": histogram"})
+                                  "mtype": "histogram"})
 
 
     def spawn_worker(self):
