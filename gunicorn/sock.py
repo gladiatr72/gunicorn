@@ -9,8 +9,10 @@ import socket
 import stat
 import sys
 import time
+import struct
 
 from gunicorn import util
+PLATFORM = sys.platform
 
 
 class BaseSocket(object):
@@ -70,6 +72,8 @@ class BaseSocket(object):
 
         self.sock = None
 
+    def get_backlog(self):
+        return 0
 
 class TCPSocket(BaseSocket):
 
@@ -87,6 +91,15 @@ class TCPSocket(BaseSocket):
     def set_options(self, sock, bound=False):
         sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
         return super().set_options(sock, bound=bound)
+
+    def get_backlog(self):
+        if self.sock and PLATFORM == 'linux':
+            fmt = 'B'*8+'I'*24
+            try:
+                tcp_info_struct = self.sock.getsockopt(socket.IPPROTO_TCP,
+                                                       socket.TCP_INFO, 104)
+                return struct.unpack(fmt, tcp_info_struct)[12]
+            except AttributeError:
 
 
 class TCP6Socket(TCPSocket):
