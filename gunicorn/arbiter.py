@@ -565,11 +565,10 @@ class Arbiter(object):
                                   "mtype": "gauge"})
 
         backlog = sum([sock.get_backlog() for sock in self.LISTENERS])
-        if backlog:
-            self.log.debug("socket backlog: {0}".format(backlog),
-                           extra={"metric": "gunicorn.backlog",
-                                  "value": backlog,
-                                  "mtype": "histogram"})
+        self.log.debug("socket backlog: {0}".format(backlog),
+                       extra={"metric": "gunicorn.backlog",
+                              "value": backlog,
+                              "mtype": "histogram"})
 
 
     def spawn_worker(self):

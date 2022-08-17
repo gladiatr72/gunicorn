@@ -100,7 +100,7 @@ class TCPSocket(BaseSocket):
                                                        socket.TCP_INFO, 104)
                 return struct.unpack(fmt, tcp_info_struct)[12]
             except AttributeError:
-                pass
+                return 0
 
 class TCP6Socket(TCPSocket):
 
