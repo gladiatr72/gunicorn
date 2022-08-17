@@ -570,6 +570,11 @@ class Arbiter(object):
                               "value": backlog,
                               "mtype": "gauge"})
 
+        self.log.debug("total listeners: {}".format(len(self.LISTENERS)),
+                       extra={"metric": "gunicorn.listeners",
+                              "value": len(self.LISTENERS),
+                              "mtype": "gauge"})
+
 
     def spawn_worker(self):
         self.worker_age += 1
