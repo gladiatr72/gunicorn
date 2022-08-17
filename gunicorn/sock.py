@@ -99,8 +99,8 @@ class TCPSocket(BaseSocket):
                 tcp_info_struct = self.sock.getsockopt(socket.IPPROTO_TCP,
                                                        socket.TCP_INFO, 104)
                 return struct.unpack(fmt, tcp_info_struct)[12]
-            except AttributeError:
-                return 0
+            except AttributeError as e:
+               log.debug(f'backlog retrieval error {e}', exc_info=True)
 
 class TCP6Socket(TCPSocket):
 
