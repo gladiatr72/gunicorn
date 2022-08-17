@@ -74,7 +74,7 @@ class Statsd(Logger):
                 typ = extra.get(MTYPE_VAR, None)
                 if metric and value and typ:
                     if typ == GAUGE_TYPE:
-                        self.gauge(metric, valuev
+                        self.gauge(metric, value)
                     elif typ == COUNTER_TYPE:
                         self.increment(metric, value)
                     elif typ == HISTOGRAM_TYPE:
