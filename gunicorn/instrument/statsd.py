@@ -32,7 +32,7 @@ class Statsd(Logger):
         try:
             host, port = cfg.statsd_host
             self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            self.sock.connect((host, int(port)))
+            #self.sock.connect((host, int(port)))
         except Exception:
             self.sock = None
 

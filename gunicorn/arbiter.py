@@ -565,14 +565,10 @@ class Arbiter(object):
                                   "mtype": "gauge"})
 
         backlog = sum([sock.get_backlog() for sock in self.LISTENERS])
+
         self.log.debug("socket backlog: {0}".format(backlog),
                        extra={"metric": "gunicorn.backlog",
-                              "value": backlog,
-                              "mtype": "gauge"})
-
-        self.log.debug("total listeners: {}".format(len(self.LISTENERS)),
-                       extra={"metric": "gunicorn.listeners",
-                              "value": len(self.LISTENERS),
+                              "value": backlog | 0.01,
                               "mtype": "gauge"})
 
 
